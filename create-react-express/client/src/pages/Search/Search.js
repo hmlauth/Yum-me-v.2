@@ -1,5 +1,6 @@
 import axios from "axios";
 import cheerio from "cheerio";
+import $ from "jquery";
 import React, { Component } from "react";
 // import DeleteBtn from "../../components/DeleteBtn";
 // import Jumbotron from "../../components/Jumbotron";
@@ -17,56 +18,47 @@ class Search extends Component {
 
   // state
   state = {
+    recipes: [],
     searchTerm: ""
-  }
+  };
 
   // componentDidMount
   componentDidMount() {
-    this.loadRecipes()
-  }
-
-  loadRecipes = () => {
-
-    // =============================================================
-    const corsURL = "https://cors-anywhere.herokuapp.com/";
-    // Make a request via axios to grab the HTML body from the site
-    axios.get(corsURL + "https://www.tasteofhome.com/collection/our-100-highest-rated-recipes-ever/").then(html => {
-
-      const $ = cheerio.load(html.data);
-
-      var scrapedRecipes = [];
-      // console.log(scrapedRecipes);
-
-      $(".listicle-page").each((i, e) => {
-
-        var recipe = {};
-        recipe.id = $(e).find(".listicle-page__count-current").text();
-        recipe.title = $(e).find('h4 a').text();
-        recipe.summary = $(e).find('.listicle-page__content').text();
-        recipe.link = $(e).find('h4 a').attr('href');
-        recipe.img = $(e).find('.image-wrapper a img').attr('src');
-
-        // console.log(recipe);
-        scrapedRecipes.push(recipe);
-        console.log('recipe', recipe);
-      });
-
-    }).catch(err => console.log(err));
-    // =============================================================
-
-  }
+    console.log("Mounted");
+  };
 
   // handleInputChange
   handleInputChange = event => {
     // Pull the name and value properties off of the event.target (the element which triggered the event)
-    const { searchTerm, value} = event.target;
+    const { searchTerm, value } = event.target;
 
     // Set the state for the appropriate input field
     this.setState({
       searchTerm: value
     });
-  };
-  //handleFormSubmit
+  }
+
+  handleFormSubmit = event => {
+    event.preventDefault();
+    this.loadRecipes();
+  }
+  
+  loadRecipes = event => {
+    console.log('searchterm', this.state.searchTerm)
+    const corsURL = 'https://cors-anywhere.herokuapp.com/'
+    const apiURL = 'https://www.food2fork.com/api/search?key=f4f40279aca7dd14a4df19d4902cae70&q='
+
+    $.ajax({
+      url: corsURL + apiURL + this.state.searchTerm,
+      method: 'GET'
+    }).then(JSONresponse => {
+      var response = JSON.parse(JSONresponse);
+      this.setState({
+        recipes: response.recipes
+      })
+      console.log("Recipe State", this.state.recipes)
+    }
+  )}
 
   render() {
     return (
@@ -109,7 +101,6 @@ class Search extends Component {
       </Container>
     );
   }
-
 }
 
 export default Search;
