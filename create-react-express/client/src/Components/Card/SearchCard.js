@@ -5,10 +5,10 @@ import { PromiseProvider } from "mongoose";
 export const SearchCard = ({ children }) => {
     return <div>
         <div className="card">
-        <div class="card-header">
+        <div className="card-header">
             <h1>Recipe Search</h1>
         </div>
-        <div class="card-body">
+        <div className="card-body">
             {children}
         </div>
         </div>
