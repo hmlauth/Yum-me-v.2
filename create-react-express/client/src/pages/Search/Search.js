@@ -12,6 +12,7 @@ import { Col, Row, Container } from "../../Components/Grid";
 import Header from "../../Components/Header";
 import { SearchCard, ResultsCard, ScrapedCard } from "../../Components/Card";
 import { Input, TextArea, FormBtn } from "../../Components/Form";
+import { List } from "../../Components/List";
 
 
 class Search extends Component {
@@ -42,7 +43,7 @@ class Search extends Component {
     event.preventDefault();
     this.loadRecipes();
   }
-  
+
   loadRecipes = event => {
     console.log('searchterm', this.state.searchTerm)
     const corsURL = 'https://cors-anywhere.herokuapp.com/'
@@ -58,7 +59,8 @@ class Search extends Component {
       })
       console.log("Recipe State", this.state.recipes)
     }
-  )}
+    )
+  }
 
   render() {
     return (
@@ -72,20 +74,20 @@ class Search extends Component {
           <Col size="md-6 sm-12">
             <SearchCard>
               <form>
-            <Input
-                type="text"
-                required="true"
-                id="recipeTitle"
-                name="searchBar"
-                placeholder="Keto Cupcakes"
-                onChange={this.handleInputChange}
-                value={this.state.searchTerm}
-              />
-              <FormBtn
-                disabled={!(this.state.searchTerm)}
-                onClick={this.handleFormSubmit}
-              >
-                Find Recipes!
+                <Input
+                  type="text"
+                  required="true"
+                  id="recipeTitle"
+                  name="searchBar"
+                  placeholder="Keto Cupcakes"
+                  onChange={this.handleInputChange}
+                  value={this.state.searchTerm}
+                />
+                <FormBtn
+                  disabled={!(this.state.searchTerm)}
+                  onClick={this.handleFormSubmit}
+                >
+                  Find Recipes!
               </FormBtn>
               </form>
             </SearchCard>
@@ -94,7 +96,16 @@ class Search extends Component {
         <Row>
           <Col size="md-6 sm-12">
             <ResultsCard>
-
+              {this.state.recipes.length ? (
+                this.state.recipes.map(recipe => (
+                <List>
+                   {recipe.title}
+                  
+                </List>
+                )) 
+              ) : (
+                  <h4>No results to display</h4>
+                )}
             </ResultsCard>
           </Col>
         </Row>
