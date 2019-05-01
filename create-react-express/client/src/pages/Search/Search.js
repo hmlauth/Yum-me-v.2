@@ -3,16 +3,14 @@ import cheerio from "cheerio";
 import $ from "jquery";
 import React, { Component } from "react";
 // import DeleteBtn from "../../components/DeleteBtn";
-// import Jumbotron from "../../components/Jumbotron";
 // import API from "../../utils/API";
 // import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../../Components/Grid";
-// import { List, ListItem } from "../../components/List";
-// import { Input, TextArea, FormBtn } from "../../components/Form";
 import Header from "../../Components/Header";
 import { SearchCard, ResultsCard, ScrapedCard } from "../../Components/Card";
 import { Input, TextArea, FormBtn } from "../../Components/Form";
-import { List } from "../../Components/List";
+import { List, ListItem } from "../../Components/List";
+import { SaveBtn, DeleteBtn } from "../../Components/Button";
 
 
 class Search extends Component {
@@ -62,16 +60,25 @@ class Search extends Component {
     )
   }
 
+  saveRecipe = x => {
+    console.log("...saving recipe", x);
+  }
+
   render() {
     return (
       <Container fluid>
-        <Row>
+      <Row>
           <Col size="md-6">
             <Header />
           </Col>
         </Row>
+      <Row>
+        <Col size="md-3">
+        <ScrapedCard />
+        </Col>
+        <Col size="md-9">
         <Row>
-          <Col size="md-6 sm-12">
+          <Col size="lg-10 md-6 sm-12">
             <SearchCard>
               <form>
                 <Input
@@ -94,21 +101,29 @@ class Search extends Component {
           </Col>
         </Row>
         <Row>
-          <Col size="md-6 sm-12">
+          <Col size="lg-10 md-6 sm-12">
             <ResultsCard>
               {this.state.recipes.length ? (
-                this.state.recipes.map(recipe => (
                 <List>
-                   {recipe.title}
-                  
+                  {this.state.recipes.map(recipe => (
+                    <ListItem
+                      key={recipe.recipe_id}
+                      img={recipe.image_url}
+                      link={recipe.source_url}
+                      title={recipe.title}>
+                      {/* <SaveBtn onClick={ () => this.saveRecipe(recipe.recipe_id)} /> */}
+                    </ListItem>
+                  ))}
                 </List>
-                )) 
               ) : (
                   <h4>No results to display</h4>
                 )}
             </ResultsCard>
           </Col>
         </Row>
+        </Col>
+      </Row>
+        
       </Container>
     );
   }

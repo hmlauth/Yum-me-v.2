@@ -3,7 +3,7 @@ import { PromiseProvider } from "mongoose";
 // import "./style.css";
 
 export const SearchCard = ({ children }) => {
-    return <div>
+    return (
         <div className="card">
         <div className="card-header">
             <h1>Recipe Search</h1>
@@ -12,7 +12,7 @@ export const SearchCard = ({ children }) => {
             {children}
         </div>
         </div>
-    </div>
+    )
 }
 
 
