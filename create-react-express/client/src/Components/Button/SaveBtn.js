@@ -2,9 +2,9 @@ import React from "react";
 
 export const SaveBtn = props => {
   return (
-    <span className="save-btn btn-success">
-      Save
-    </span>
+    <button className="btn btn-success save-btn" {...props}>
+        Save
+    </button>
   )
 }
 

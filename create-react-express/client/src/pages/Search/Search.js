@@ -10,7 +10,7 @@ import Header from "../../Components/Header";
 import { SearchCard, ResultsCard, ScrapedCard } from "../../Components/Card";
 import { Input, TextArea, FormBtn } from "../../Components/Form";
 import { List, ListItem } from "../../Components/List";
-import { SaveBtn, DeleteBtn } from "../../Components/Button";
+import { SaveBtn, DeleteBtn } from "../../Components/Button"
 
 
 class Search extends Component {
@@ -111,7 +111,7 @@ class Search extends Component {
                       img={recipe.image_url}
                       link={recipe.source_url}
                       title={recipe.title}>
-                      {/* <SaveBtn onClick={ () => this.saveRecipe(recipe.recipe_id)} /> */}
+                      <SaveBtn onClick={ () => this.saveRecipe(recipe.recipe_id)}/>
                     </ListItem>
                   ))}
                 </List>
