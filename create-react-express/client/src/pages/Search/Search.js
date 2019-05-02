@@ -3,7 +3,7 @@ import cheerio from "cheerio";
 import $ from "jquery";
 import React, { Component } from "react";
 // import DeleteBtn from "../../components/DeleteBtn";
-// import API from "../../utils/API";
+import API from "../../utils/API";
 // import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../../Components/Grid";
 import Header from "../../Components/Header";
@@ -60,8 +60,9 @@ class Search extends Component {
     )
   }
 
-  saveRecipe = x => {
-    console.log("...saving recipe", x);
+  saveRecipe = recipeData => {
+    console.log("...saving recipe", recipeData);
+    
   }
 
   render() {
