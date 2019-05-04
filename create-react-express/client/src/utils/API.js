@@ -1,12 +1,13 @@
-// this file is exported for use by the "pages/search/Search.js" file.
+// this file is exported for use by the pages directory.
 
 import axios from "axios";
 
 export default {
   // Gets all recipes
-//   getRecipes: function() {
-//     return axios.get("/api/recipes");
-//   },
+  getSavedRecipes: function() {
+    console.log("Inside API route getSavedRecipes")
+    return axios.get("/api/recipes");
+  },
 //   // Gets the recipe with the given id
 //   getRecipe: function(id) {
 //     return axios.get("/api/recipes/" + id);

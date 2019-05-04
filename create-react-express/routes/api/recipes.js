@@ -9,8 +9,9 @@ const recipesController = require("../../controllers/recipesController");
 // 5. Again, the calling body will use the index.js file becaues it exists. In the index.js file we add to the root route: "/api" + "/recipes" so now the root route is "/api/recipes"
 // 6. Now inside this file, recipes.js, we call at as the root route from api/index.js file containing the added "/recipes" and call now just call at "/" as the root route.
 router.route("/")
+// console.log("inside get at root route /api/routes")
     // once the route has been called, we run a method on the controller to retrieve data from the database. RecipesControllers.findAll is findingAll data available and with predefined specifications. 
-    // .get(recipesController.findAll)
+    .get(recipesController.findAll)
     // similarly, create a post request through the root route "/" (but really /api/recipes) MongoDB will create a new document with the information passed in. 
     .post(recipesController.create);
 

@@ -19,11 +19,7 @@ class Search extends Component {
   state = {
     recipes: [],
     searchTerm: "",
-    title: "",
-    img: "",
-    link: "",
-    publisher: "",
-    social_rank: ""
+
   };
 
   // componentDidMount
@@ -65,22 +61,29 @@ class Search extends Component {
     )
   }
 
-  loadSavedRecipes = () => {
-    API.getRecipes()
-    .then(res =>
-      this.setState({ recipes: res.data, title: "" })
-    )
-    .catch(err => console.log(err));
-  }
+  // loadRecipes = () => {
+  //   API.getRecipes()
+  //   .then(res =>
+  //     this.setState({ recipes: res.data, title: "" })
+  //   )
+  //   .catch(err => console.log(err));
+  // }
 
-  saveRecipe = recipeTitle => {
+  saveRecipe = recipe => {
   
-    console.log("...saving recipe", recipeTitle);
+    console.log("...saving recipe", recipe);
+    const { recipe_id, title, image_url, source_url, publisher, publisher_url, social_rank } = recipe
 
       API.saveRecipe({
-        title: recipeTitle
+        recipe_id,
+        title,
+        image_url,
+        source_url,
+        publisher,
+        publisher_url,
+        social_rank
       })
-        .then(res => this.loadRecipes())
+        .then(res => console.log('Recipe Saved!', res))
         .catch(err => console.log(err));
     }
     
@@ -134,12 +137,7 @@ class Search extends Component {
                       publisher={recipe.publisher}
                       social_rank={recipe.social_rank}>
                       <SaveBtn 
-                      key={recipe.recipe_id}
-                      img={recipe.image_url}
-                      title={recipe.title}
-                      link={recipe.source_url}
-                      publisher={recipe.publisher}
-                      social_rank={recipe.social_rank}
+                      recipe={recipe}
                       onClick={this.saveRecipe}/>
                       <ViewBtn link={recipe.source_url} />
                     </ListItem>

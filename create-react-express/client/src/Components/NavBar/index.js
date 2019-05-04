@@ -5,8 +5,8 @@ function NavBar() {
     return <div>
         <nav className="navbar navbar-light bg-light">
             <a className="navbar-brand">Yum(me).v.2</a>
-            <a className="navbar-brand">Search</a>
-            <a className="navbar-brand">Saved</a>
+            <a className="navbar-brand" href="/">Search</a>
+            <a className="navbar-brand" href="/saved">Saved</a>
         </nav>
     </div>
 }
