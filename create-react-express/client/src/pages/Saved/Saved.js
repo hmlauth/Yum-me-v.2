@@ -17,11 +17,6 @@ class Saved extends Component {
   // state
   state = {
     recipes: [],
-    title: "",
-    // img: "",
-    // link: "",
-    // publisher: "",
-    // social_rank: ""
   };
 
   // componentDidMount
@@ -34,18 +29,17 @@ class Saved extends Component {
     console.log("loading saved recipes")
     API.getSavedRecipes()
     .then(res =>
-      this.setState({ recipes: res.data, title: "" })
+      this.setState({ 
+        recipes: res.data
+      })
     )
     .catch(err => console.log("ERR", err));
   }
 
-  deleteRecipe = recipeTitle => {
-  
-    console.log("...deleting recipe", recipeTitle);
+  deleteRecipe = id => {
+    console.log("...deleting recipe", id);
 
-      API.deleteRecipe({
-        title: recipeTitle
-      })
+      API.deleteRecipe(id)
         .then(res => this.loadSavedRecipes())
         .catch(err => console.log(err));
     }
@@ -67,9 +61,12 @@ class Saved extends Component {
               {this.state.recipes.length ? (
                 <List>
                   {this.state.recipes.map(recipe => (
-                    <ListItem>
+                    <ListItem 
+                      key={recipe.recipe_id}
+                      img={recipe.image_url}
+                      title={recipe.title}>
                       <DeleteBtn 
-                      onClick={this.deleteRecipe}/>
+                      onClick={() => this.deleteRecipe(recipe._id)}/>
                       <ViewBtn link={recipe.source_url} />
                     </ListItem>
                   ))}

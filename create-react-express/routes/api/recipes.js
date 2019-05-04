@@ -16,10 +16,11 @@ router.route("/")
     .post(recipesController.create);
 
 // The same process applies for this (being that we're at the root route of /api/recipes) except this time we are continuing to add one more parameter to the query - the :id. "id" acts as a descriptive variable. While you could just as easily call this x, we choose to use a more descriptive variable for readibility. The key purpose of this addition is to pass through variable information, most often used for ids because their are such great unique, identifiers. For example, we are passing in an id into each of the following methods.
-// router.route("/:id")
+router.route("/:id")
+    .delete(recipesController.remove);
 //     .get(recipesController.findById)
 //     .put(recipesController.update)
-//     .delete(recipesController.remove);
+
 
 // finally we need to export all of this information so that the information is sent back through the calling channels. If we did not have this export, all information retrieved through these controller methods would be stuck, not broadcast back out.
 module.exports = router;

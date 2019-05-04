@@ -133,9 +133,7 @@ class Search extends Component {
                     <ListItem
                       key={recipe.recipe_id}
                       img={recipe.image_url}
-                      title={recipe.title}
-                      publisher={recipe.publisher}
-                      social_rank={recipe.social_rank}>
+                      title={recipe.title}>
                       <SaveBtn 
                       recipe={recipe}
                       onClick={this.saveRecipe}/>
