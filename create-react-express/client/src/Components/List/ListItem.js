@@ -9,7 +9,6 @@ export const ListItem = props => {
                     <div className="col-md-4">
                         <img src={props.img} className="card-img" alt={props.title}>
                         </img>
-                        <a href={props.link} target="_blank"><p>View Recipe</p></a>
                     </div>
                         <div className="col-md-8">
                             <div className="card-body">

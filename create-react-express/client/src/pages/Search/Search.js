@@ -10,7 +10,7 @@ import Header from "../../Components/Header";
 import { SearchCard, ResultsCard, ScrapedCard } from "../../Components/Card";
 import { Input, TextArea, FormBtn } from "../../Components/Form";
 import { List, ListItem } from "../../Components/List";
-import { SaveBtn, DeleteBtn } from "../../Components/Button"
+import { SaveBtn, ViewBtn, DeleteBtn } from "../../Components/Button"
 
 
 class Search extends Component {
@@ -18,7 +18,12 @@ class Search extends Component {
   // state
   state = {
     recipes: [],
-    searchTerm: ""
+    searchTerm: "",
+    title: "",
+    img: "",
+    link: "",
+    publisher: "",
+    social_rank: ""
   };
 
   // componentDidMount
@@ -29,20 +34,20 @@ class Search extends Component {
   // handleInputChange
   handleInputChange = event => {
     // Pull the name and value properties off of the event.target (the element which triggered the event)
-    const { searchTerm, value } = event.target;
+    const { value } = event.target;
 
     // Set the state for the appropriate input field
     this.setState({
-      searchTerm: value
+      searchTerm: value,
     });
   }
 
   handleFormSubmit = event => {
     event.preventDefault();
-    this.loadRecipes();
+    this.searchRecipes();
   }
 
-  loadRecipes = event => {
+  searchRecipes = event => {
     console.log('searchterm', this.state.searchTerm)
     const corsURL = 'https://cors-anywhere.herokuapp.com/'
     const apiURL = 'https://www.food2fork.com/api/search?key=f4f40279aca7dd14a4df19d4902cae70&q='
@@ -60,10 +65,25 @@ class Search extends Component {
     )
   }
 
-  saveRecipe = recipeData => {
-    console.log("...saving recipe", recipeData);
-    
+  loadSavedRecipes = () => {
+    API.getRecipes()
+    .then(res =>
+      this.setState({ recipes: res.data, title: "" })
+    )
+    .catch(err => console.log(err));
   }
+
+  saveRecipe = recipeTitle => {
+  
+    console.log("...saving recipe", recipeTitle);
+
+      API.saveRecipe({
+        title: recipeTitle
+      })
+        .then(res => this.loadRecipes())
+        .catch(err => console.log(err));
+    }
+    
 
   render() {
     return (
@@ -86,7 +106,7 @@ class Search extends Component {
                   type="text"
                   required="true"
                   id="recipeTitle"
-                  name="searchBar"
+                  name="searchTerm"
                   placeholder="Keto Cupcakes"
                   onChange={this.handleInputChange}
                   value={this.state.searchTerm}
@@ -110,9 +130,18 @@ class Search extends Component {
                     <ListItem
                       key={recipe.recipe_id}
                       img={recipe.image_url}
+                      title={recipe.title}
+                      publisher={recipe.publisher}
+                      social_rank={recipe.social_rank}>
+                      <SaveBtn 
+                      key={recipe.recipe_id}
+                      img={recipe.image_url}
+                      title={recipe.title}
                       link={recipe.source_url}
-                      title={recipe.title}>
-                      <SaveBtn onClick={ () => this.saveRecipe(recipe.recipe_id)}/>
+                      publisher={recipe.publisher}
+                      social_rank={recipe.social_rank}
+                      onClick={this.saveRecipe}/>
+                      <ViewBtn link={recipe.source_url} />
                     </ListItem>
                   ))}
                 </List>
