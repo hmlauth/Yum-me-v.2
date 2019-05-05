@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "Mern Demo",
   "private": true,
+  "homepage":"https://hmlauth.github.io/Yum-me-v.2",
   "proxy": "http://localhost:3001/",
   "dependencies": {
     "axios": "^0.18.0",
@@ -17,7 +18,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
   },
   "browserslist": [
     ">0.2%",
