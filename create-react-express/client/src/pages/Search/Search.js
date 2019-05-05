@@ -61,13 +61,6 @@ class Search extends Component {
     )
   }
 
-  // loadRecipes = () => {
-  //   API.getRecipes()
-  //   .then(res =>
-  //     this.setState({ recipes: res.data, title: "" })
-  //   )
-  //   .catch(err => console.log(err));
-  // }
 
   saveRecipe = recipe => {
   
